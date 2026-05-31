@@ -16,5 +16,8 @@
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "dependencies": {
+    "@databuddy/sdk": "^2.4.20"
   }
 }
