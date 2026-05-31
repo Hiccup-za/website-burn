@@ -2,14 +2,17 @@
 
 Waitlist application for the Burn macOS menu bar app.
 
+---
+
 ## Stack
 
 - **Turborepo** — monorepo task orchestration
 - **Bun** — package manager and runtime
-- **Next.js 15** — web app (`apps/web`, port 3015)
+- **Next.js 15** — web app
 - **Drizzle ORM** — database schema and migrations (Postgres)
 - **Better Auth** — authentication
 - **Upstash** — Redis rate limiting
+
 
 ## Apps
 
@@ -31,5 +34,6 @@ bun run dev
 | `bun run dev` | Start all apps in development mode |
 | `bun run build` | Build all apps |
 | `bun run start` | Start all apps in production mode |
+| `bun run test` | Run integration tests (from `apps/web/`) |
 | `bun run db:push` | Push schema changes to the database |
 | `bun run db:generate` | Regenerate auth schema |

@@ -1,11 +1,12 @@
 {
   "name": "burn-web",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3015",
     "build": "next build",
     "start": "next start -p 3015",
+    "test": "bun test",
     "db:push": "bunx drizzle-kit push",
     "db:generate": "bunx @better-auth/cli generate --output ./lib/auth-schema.ts"
   },

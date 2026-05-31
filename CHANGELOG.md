@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] — 2026-05-31
+
+### Added
+- Integration test suite for the waitlist signup flow (`apps/web/__tests__/`).
+- `bun test` script in `apps/web/package.json`.
+- GitHub Actions release workflow that creates a GitHub release from the CHANGELOG on every push to main.
+
+### Changed
+- Waitlist modal copy rewritten with a personal introduction: heading is now "Join the waitlist", subheading "Hello and thank you for your interest!", and body introduces Chris (linked to X) followed by the backstory and CTA across separate paragraphs.
+- `README.md` updated with a horizontal rule separator and a `bun run test` entry in the commands table.
+
 ## [1.0.0] — 2026-05-31
 
 ### Added

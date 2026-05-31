@@ -228,12 +228,14 @@ export default function Home() {
         <div className="modal-card">
           <button className="modal-close" onClick={closeModal} aria-label="Close">&times;</button>
 
-          <h2 className="modal-heading" id="modal-heading">Waitlist</h2>
-          <p className="modal-subheading">Thank you for your interest</p>
+          <h2 className="modal-heading" id="modal-heading">Join the waitlist</h2>
+          <p className="modal-subheading">Hello and thank you for your interest!</p>
 
           <div className="modal-body">
-            <p>Burn is currently in early access. Drop your email below and you&apos;ll be among the first to know when a download is available — along with early release notes and what&apos;s coming next.</p>
-            <p>We&apos;re keeping the initial release small so we can move fast and fix things quickly. Your spot on the list means a lot, and we&apos;ll be in touch as soon as it&apos;s ready.</p>
+            <p>Heya, I&apos;m <a href="https://x.com/chriszeuch" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)' }}>Chris</a> 👋</p>
+            <p>I built Burn so that I could check in on my Claude usage as I worked.</p>
+            <p>Now that I&apos;ve used it for a few weeks, I&apos;m gearing up for an early access release. Drop your email below and you&apos;ll be among the first to know when a download is available.</p>
+            <p>Thanks again for your interest!</p>
           </div>
 
           {!submitted ? (

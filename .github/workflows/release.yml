@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Extract version from CHANGELOG
+        id: version
+        run: |
+          VERSION=$(grep -m1 '## \[[0-9]' CHANGELOG.md | sed 's/## \[\(.*\)\].*/\1/')
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Check if release already exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "v${{ steps.version.outputs.version }}" &>/dev/null; then
+            echo "Release v${{ steps.version.outputs.version }} already exists — bump the version in CHANGELOG.md before merging."
+            exit 1
+          fi
+
+      - name: Extract release notes
+        run: |
+          awk '/^## \['"${{ steps.version.outputs.version }}"'\]/{found=1; next} found && /^## \[/{exit} found{print}' CHANGELOG.md > release_notes.md
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "v${{ steps.version.outputs.version }}" \
+            --title "v${{ steps.version.outputs.version }}" \
+            --notes-file release_notes.md
