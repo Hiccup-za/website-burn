@@ -149,7 +149,7 @@ export default function Home() {
   }
 
   const countLabel = count === null
-    ? '— people on the waitlist'
+    ? null
     : `${count.toLocaleString()} ${count === 1 ? 'person' : 'people'} on the waitlist`
 
   return (
@@ -185,10 +185,12 @@ export default function Home() {
           <p className="cta-meta">
             <span>v0.1</span><span>macOS 13+</span>
           </p>
-          <p className="waitlist-count">
-            <span className="waitlist-count-dot"></span>
-            <span>{countLabel}</span>
-          </p>
+          {countLabel !== null && (
+            <p className="waitlist-count">
+              <span className="waitlist-count-dot"></span>
+              <span>{countLabel}</span>
+            </p>
+          )}
         </div>
 
         {/* Mockup */}
@@ -207,6 +209,65 @@ export default function Home() {
               <div className="mb-bar-fill green" style={{ width: '24%' }}></div>
             </div>
             <div className="mb-meta"><span>24% used</span><span>Resets in 3 hr 57 min</span></div>
+          </div>
+        </div>
+      </section>
+
+      {/* NOTIFICATIONS SECTION */}
+      <section className="feature-section">
+        <div className="feature-grid">
+          <div className="feature-copy">
+            <span className="section-eyebrow">Notifications</span>
+            <h2 className="feature-heading">Never get<br /><em>caught off guard</em></h2>
+            <p className="feature-text">Burn sends native macOS notifications as you approach your limits, so you always know when one is coming. Stay in flow and wrap up on your terms instead of hitting a wall.</p>
+          </div>
+          <div className="feature-visual">
+        <div className="notif-stack">
+          <div className="notif-card">
+            <div className="notif-app-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
+                <path d="M143.38,17.85a8,8,0,0,0-12.63,3.41l-22,60.41L84.59,58.26a8,8,0,0,0-11.93.89C51,87.53,40,116.08,40,144a88,88,0,0,0,176,0C216,84.55,165.21,36,143.38,17.85Zm40.51,135.49a57.6,57.6,0,0,1-46.56,46.55A7.65,7.65,0,0,1,136,200a8,8,0,0,1-1.32-15.89c16.57-2.79,30.63-16.85,33.44-33.45a8,8,0,0,1,15.78,2.68Z" />
+              </svg>
+            </div>
+            <div className="notif-content">
+              <div className="notif-top">
+                <span className="notif-title">Current Session at 83%</span>
+                <span className="notif-time">Yesterday, 19:58</span>
+              </div>
+              <p className="notif-body">Resets in 4 hr 1 min.</p>
+            </div>
+          </div>
+
+          <div className="notif-card">
+            <div className="notif-app-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
+                <path d="M143.38,17.85a8,8,0,0,0-12.63,3.41l-22,60.41L84.59,58.26a8,8,0,0,0-11.93.89C51,87.53,40,116.08,40,144a88,88,0,0,0,176,0C216,84.55,165.21,36,143.38,17.85Zm40.51,135.49a57.6,57.6,0,0,1-46.56,46.55A7.65,7.65,0,0,1,136,200a8,8,0,0,1-1.32-15.89c16.57-2.79,30.63-16.85,33.44-33.45a8,8,0,0,1,15.78,2.68Z" />
+              </svg>
+            </div>
+            <div className="notif-content">
+              <div className="notif-top">
+                <span className="notif-title">Session Resets in Under 5 Minutes</span>
+                <span className="notif-time">Yesterday, 18:55</span>
+              </div>
+              <p className="notif-body">Your current session limit is about to reset.</p>
+            </div>
+          </div>
+
+          <div className="notif-card">
+            <div className="notif-app-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
+                <path d="M143.38,17.85a8,8,0,0,0-12.63,3.41l-22,60.41L84.59,58.26a8,8,0,0,0-11.93.89C51,87.53,40,116.08,40,144a88,88,0,0,0,176,0C216,84.55,165.21,36,143.38,17.85Zm40.51,135.49a57.6,57.6,0,0,1-46.56,46.55A7.65,7.65,0,0,1,136,200a8,8,0,0,1-1.32-15.89c16.57-2.79,30.63-16.85,33.44-33.45a8,8,0,0,1,15.78,2.68Z" />
+              </svg>
+            </div>
+            <div className="notif-content">
+              <div className="notif-top">
+                <span className="notif-title">Weekly Usage at 80%</span>
+                <span className="notif-time">Yesterday, 14:02</span>
+              </div>
+              <p className="notif-body">Resets Mon 9:00 AM.</p>
+            </div>
+          </div>
+        </div>
           </div>
         </div>
       </section>
