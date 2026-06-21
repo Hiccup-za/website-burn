@@ -33,6 +33,19 @@ export const auth = betterAuth({
   secret: process.env.BETTER_AUTH_SECRET!,
   emailAndPassword: { enabled: true },
   socialProviders,
+  // Records which waitlist button a user signed up from. Nullable (required:
+  // false) so adding the column doesn't break existing rows on db:push; the
+  // /api/waitlist route always supplies a validated value. input: true lets it
+  // be passed into auth.api.signUpEmail().
+  user: {
+    additionalFields: {
+      signupSource: {
+        type: 'string',
+        required: false,
+        input: true,
+      },
+    },
+  },
   // Built-in rate limiting protects the public /api/auth/* surface. Memory
   // storage is per-instance and useless on Vercel serverless, so persist to
   // the database. NOTE: this does NOT cover /api/waitlist, which calls
