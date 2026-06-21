@@ -3,6 +3,7 @@ import './globals.css'
 import DatabuddyWidget from './databuddy-widget'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://burnusage.xyz'),
   title: 'Burn — Claude Usage in Your Menu Bar',
   description: 'Burn sits in your macOS menu bar and shows your Claude usage at a glance.',
   icons: {
