@@ -1,0 +1,327 @@
+/* ─────────────────────────────────────────────
+   MARKETING / PRODUCT IMAGE STAGE
+   Frames render at a true 16:9. All interior sizing
+   is in cqw (container query width), so the frame is
+   pixel-identical whether previewed on-page or
+   exported at 1600×900. Matches the Burn site: system
+   font, brand orange (--accent #d97757), dark canvas.
+   ───────────────────────────────────────────── */
+
+.mk-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(217,119,87,0.06), transparent 60%),
+    var(--bg);
+  color: var(--text);
+  padding: 72px 32px 120px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.mk-page-head {
+  max-width: 1100px;
+  margin: 0 auto 56px;
+}
+
+.mk-back {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.mk-back:hover { color: var(--accent); }
+
+.mk-page-title {
+  font-weight: 700;
+  font-size: 40px;
+  letter-spacing: -1.5px;
+  margin: 18px 0 10px;
+}
+.mk-page-title em { font-style: normal; color: var(--accent); }
+
+.mk-page-sub {
+  color: var(--muted);
+  font-size: 15px;
+  max-width: 560px;
+  line-height: 1.7;
+}
+
+.mk-asset {
+  max-width: 1100px;
+  margin: 0 auto 72px;
+}
+
+.mk-asset-label {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.mk-asset-label .name {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.mk-asset-label .dim {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+}
+
+/* Export mode — single full-bleed frame at exactly 1600×900 */
+.mk-export { margin: 0; padding: 0; background: #000; }
+/* Hide the Next.js dev indicator so it never lands in an exported image */
+body:has(.mk-export) nextjs-portal { display: none !important; }
+.mk-stage--bare { border-radius: 0; box-shadow: none; max-width: none; }
+.mk-export .mk-blob,
+.mk-export .mk-copy,
+.mk-export .mk-product { animation: none !important; }
+
+/* The container that defines 1cqw */
+.mk-stage {
+  container-type: inline-size;
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+.mk-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  isolation: isolate;
+  color: #f0f0f0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --c-accent: #d97757;
+  --c-accent-l: #f2a47a;
+  --c-accent-d: #b8512e;
+}
+
+/* ── Background layers ── */
+.mk-bg { position: absolute; inset: 0; z-index: 0; }
+
+.mk-bg--pro {
+  background:
+    radial-gradient(115% 120% at 86% 8%, rgba(217,119,87,0.22), transparent 46%),
+    radial-gradient(90% 100% at 6% 102%, rgba(217,119,87,0.10), transparent 52%),
+    radial-gradient(140% 140% at 50% 50%, transparent 55%, rgba(0,0,0,0.55)),
+    linear-gradient(155deg, #120c0b 0%, #0a0a0b 55%, #0c0a0e 100%);
+}
+.mk-bg--lifetime {
+  background:
+    radial-gradient(115% 120% at 86% 8%, rgba(217,119,87,0.20), transparent 46%),
+    radial-gradient(90% 100% at 6% 102%, rgba(217,119,87,0.09), transparent 52%),
+    radial-gradient(140% 140% at 50% 50%, transparent 53%, rgba(0,0,0,0.58)),
+    linear-gradient(155deg, #110c0b 0%, #08080a 55%, #0b0a0c 100%);
+}
+
+.mk-blob {
+  position: absolute; z-index: 1;
+  width: 46cqw; height: 46cqw;
+  right: -8cqw; top: -12cqw;
+  filter: blur(7cqw);
+  background: radial-gradient(circle, rgba(217,119,87,0.38), transparent 62%);
+  animation: mk-drift 9s ease-in-out infinite;
+}
+.mk-frame--lifetime .mk-blob {
+  background: radial-gradient(circle, rgba(217,119,87,0.30), transparent 64%);
+}
+
+.mk-grain {
+  position: absolute; inset: 0; z-index: 6; pointer-events: none;
+  opacity: 0.05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes mk-drift {
+  0%, 100% { transform: translate(0, 0); opacity: 0.9; }
+  50%      { transform: translate(-1.5cqw, 1.5cqw); opacity: 1; }
+}
+
+/* ── Content grid ── */
+.mk-content {
+  position: absolute; inset: 0; z-index: 4;
+  display: grid;
+  grid-template-columns: 1.04fr 0.96fr;
+  align-items: center;
+  gap: 4cqw;
+  padding: 6.2cqw 6.6cqw;
+}
+
+/* ── Copy column ── */
+.mk-copy { animation: mk-rise 0.7s cubic-bezier(0.2,0.8,0.2,1) both; }
+
+.mk-brand {
+  display: flex; align-items: center; gap: 0.85cqw;
+  margin-bottom: 2.4cqw;
+}
+.mk-brand svg { width: 2.2cqw; height: 2.2cqw; color: var(--c-accent); }
+.mk-brand-name { font-weight: 600; font-size: 1.7cqw; letter-spacing: -0.02em; }
+
+.mk-eyebrow {
+  display: inline-flex; align-items: center;
+  font-size: 1.0cqw; font-weight: 500; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--c-accent);
+  padding: 0.5cqw 1.1cqw;
+  border: 1px solid rgba(217,119,87,0.35);
+  border-radius: 100px;
+  background: rgba(217,119,87,0.08);
+  margin-bottom: 2cqw;
+}
+
+.mk-title {
+  font-weight: 700; font-size: 5.4cqw; line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+.mk-title em { font-style: normal; color: var(--c-accent); }
+
+.mk-sub {
+  font-size: 1.55cqw; line-height: 1.5;
+  color: #b9b3ad; margin-top: 1.9cqw; max-width: 32cqw;
+}
+
+.mk-feats {
+  list-style: none; margin-top: 2.6cqw;
+  display: flex; flex-direction: column; gap: 1cqw;
+}
+.mk-feats li {
+  display: flex; align-items: center; gap: 1cqw;
+  font-size: 1.4cqw; color: #ddd7d1;
+}
+.mk-feats svg { width: 1.7cqw; height: 1.7cqw; color: var(--c-accent); flex-shrink: 0; }
+
+.mk-price {
+  display: flex; align-items: baseline; gap: 0.8cqw; margin-top: 3cqw;
+}
+.mk-price-val { font-weight: 700; font-size: 4.6cqw; letter-spacing: -0.045em; }
+.mk-price-per { font-size: 1.3cqw; color: #8c857e; }
+
+/* ── Product column ── */
+.mk-product {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  animation: mk-rise 0.7s cubic-bezier(0.2,0.8,0.2,1) 0.12s both;
+}
+
+.mk-widget { width: 33cqw; position: relative; z-index: 2; }
+
+/* faux macOS menu bar */
+.mk-menubar {
+  width: 100%; height: 2.7cqw;
+  border-radius: 0.8cqw;
+  background: rgba(18,18,20,0.85);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: flex-end;
+  gap: 1.1cqw; padding: 0 1.1cqw;
+  margin-bottom: 1.3cqw;
+  box-shadow: 0 1cqw 2cqw rgba(0,0,0,0.35);
+}
+.mk-mb-glyph {
+  width: 1.5cqw; height: 1.5cqw; color: #cbc6c1;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.mk-mb-glyph svg { display: block; width: 100%; height: 100%; }
+.mk-mb-time {
+  font-size: 1.0cqw; font-weight: 500; color: #d7d2cd;
+  display: inline-flex; align-items: center; line-height: 1;
+}
+.mk-mb-pill {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5cqw;
+  background: rgba(217,119,87,0.16);
+  border: 1px solid rgba(217,119,87,0.42);
+  color: var(--c-accent-l);
+  font-weight: 700; font-size: 1.0cqw;
+  padding: 0.28cqw 0.75cqw; border-radius: 0.6cqw;
+}
+.mk-mb-pill svg { display: block; width: 1.15cqw; height: 1.15cqw; }
+
+/* popover */
+.mk-popover {
+  width: 100%;
+  background: linear-gradient(180deg, rgba(30,30,32,0.97), rgba(15,15,17,0.98));
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 1.5cqw;
+  padding: 1.9cqw;
+  box-shadow:
+    0 2.4cqw 5cqw rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+}
+.mk-frame--lifetime .mk-popover {
+  border-color: rgba(217,119,87,0.28);
+  box-shadow:
+    0 2.4cqw 5cqw rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(217,119,87,0.18);
+}
+
+.mk-pop-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.7cqw;
+}
+.mk-pop-brand {
+  display: flex; align-items: center; gap: 0.6cqw;
+  font-weight: 600; font-size: 1.35cqw;
+}
+.mk-pop-brand svg { width: 1.55cqw; height: 1.55cqw; color: var(--c-accent); }
+.mk-pop-tag {
+  font-weight: 700; font-size: 0.85cqw; letter-spacing: 0.12em;
+  padding: 0.25cqw 0.65cqw; border-radius: 0.45cqw;
+  background: var(--c-accent); color: #1a0f0a;
+}
+
+.mk-metric { margin-bottom: 1.4cqw; }
+.mk-metric-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 1.0cqw; color: #c2bcb6; margin-bottom: 0.6cqw;
+}
+.mk-metric-val { font-weight: 700; color: #fff; font-size: 1.05cqw; }
+.mk-bar {
+  height: 0.75cqw; border-radius: 1cqw;
+  background: rgba(255,255,255,0.08); overflow: hidden;
+}
+.mk-bar i {
+  display: block; height: 100%; border-radius: 1cqw;
+  background: linear-gradient(90deg, var(--c-accent-d), var(--c-accent), var(--c-accent-l));
+  box-shadow: 0 0 1.4cqw rgba(217,119,87,0.6);
+}
+.mk-metric-sub { font-size: 0.85cqw; color: #8c857e; margin-top: 0.55cqw; }
+
+.mk-extra {
+  margin-top: 1.5cqw; padding-top: 1.4cqw;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.mk-trend { font-weight: 700; font-size: 0.95cqw; color: #7ccf9b; }
+.mk-spark {
+  display: flex; align-items: flex-end; gap: 0.55cqw;
+  height: 4.2cqw; margin-top: 1cqw;
+}
+.mk-spark i {
+  flex: 1; border-radius: 0.3cqw 0.3cqw 0.1cqw 0.1cqw;
+  background: linear-gradient(180deg, var(--c-accent-l), var(--c-accent-d));
+  opacity: 0.55;
+}
+.mk-spark i.hot { opacity: 1; box-shadow: 0 0 1.2cqw rgba(217,119,87,0.55); }
+
+.mk-foreverline {
+  display: flex; align-items: center; gap: 0.7cqw;
+  font-size: 1.0cqw; font-weight: 500; color: var(--c-accent-l);
+  margin-top: 1.3cqw; padding-top: 1.2cqw;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.mk-foreverline .inf { font-weight: 700; font-size: 1.6cqw; line-height: 1; color: var(--c-accent); }
+
+@keyframes mk-rise {
+  from { opacity: 0; transform: translateY(2cqw); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-blob, .mk-copy, .mk-product { animation: none; }
+}

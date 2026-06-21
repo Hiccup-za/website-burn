@@ -285,16 +285,11 @@ export default function Home() {
       <section className="plan-section">
         <div className="plan-header">
           <span className="section-eyebrow">Plans</span>
-          {/* Pro/Lifetime copy temporarily hidden — restore when those plans go live:
           <h2 className="plan-heading">Free to start,<br /><em>Pro when you grow</em></h2>
           <p className="plan-subtext">Burn is free to use, forever. Level up to Pro for the full history behind your numbers, or pay once and own it for life.</p>
-          */}
-          <h2 className="plan-heading"><em>Free</em> to start</h2>
-          <p className="plan-subtext">Burn is free to use, forever. Put your Claude usage in the menu bar and never get caught off guard by a limit again.</p>
         </div>
 
-        {/* `single` centers the lone Free card — remove it when Pro & Lifetime return */}
-        <div className="plan-grid single">
+        <div className="plan-grid">
           {/* FREE */}
           <article className="plan-card">
             <span className="plan-name">Free</span>
@@ -312,7 +307,7 @@ export default function Home() {
             <button className="plan-btn" onClick={() => openModal('plan_free')}>Join the Waitlist</button>
           </article>
 
-          {/* Pro & Lifetime plans temporarily hidden — restore when they go live:
+          {/* PRO */}
           <article className="plan-card featured">
             <span className="plan-badge">Most popular</span>
             <span className="plan-name">Pro</span>
@@ -329,6 +324,7 @@ export default function Home() {
             <button className="plan-btn primary" onClick={() => openModal('plan_pro')}>Join the Waitlist</button>
           </article>
 
+          {/* LIFETIME */}
           <article className="plan-card">
             <span className="plan-name">Lifetime</span>
             <p className="plan-tagline">Pay once. Own every version of Burn, forever.</p>
@@ -344,7 +340,6 @@ export default function Home() {
             <p className="plan-note">Funds the Apple Developer license that keeps Burn signed &amp; running.</p>
             <button className="plan-btn" onClick={() => openModal('plan_lifetime')}>Join the Waitlist</button>
           </article>
-          */}
         </div>
       </section>
 
