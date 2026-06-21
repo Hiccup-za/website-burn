@@ -25,6 +25,13 @@ export async function POST(req: Request) {
   const email: string = body?.email?.trim() ?? ''
   const honeypot: string = body?.company?.trim() ?? ''
 
+  // Which waitlist button the user came in through. Validate against a known
+  // allowlist so we never store arbitrary client-supplied strings; anything
+  // unknown or missing falls back to the original hero button.
+  const ALLOWED_SOURCES = ['hero', 'plan_free', 'plan_pro', 'plan_lifetime', 'cta']
+  const rawSource: string = body?.source?.trim() ?? ''
+  const signupSource = ALLOWED_SOURCES.includes(rawSource) ? rawSource : 'hero'
+
   // Honeypot: a real user never fills the hidden "company" field. Silently
   // accept so the bot gets no signal, but skip the signup.
   if (honeypot) {
@@ -41,6 +48,7 @@ export async function POST(req: Request) {
         name: email.split('@')[0],
         email,
         password: crypto.randomUUID(),
+        signupSource,
       },
     })
     return NextResponse.json({ ok: true })

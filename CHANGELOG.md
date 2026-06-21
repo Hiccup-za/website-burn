@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] — 2026-06-21
+
+### Added
+- "Plans" section on the landing page presenting the free plan (paid Pro and Lifetime tiers are built but hidden until launch).
+- Final call-to-action section above the footer inviting visitors to join the waitlist.
+- Signup-source tracking: the waitlist now records which button a visitor signed up from, stored in a new `signup_source` column on the user table.
+
 ## [1.0.4] — 2026-06-01
 
 ### Added

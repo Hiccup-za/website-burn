@@ -79,6 +79,14 @@ function launchConfetti() {
   })()
 }
 
+function Check() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25z" clipRule="evenodd" />
+    </svg>
+  )
+}
+
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -88,6 +96,7 @@ export default function Home() {
   const [submitError, setSubmitError] = useState('')
   const [company, setCompany] = useState('') // honeypot — real users leave this empty
   const [count, setCount] = useState<number | null>(null)
+  const [source, setSource] = useState('hero') // which button opened the modal
 
   useEffect(() => {
     fetch('/api/waitlist/count')
@@ -96,7 +105,7 @@ export default function Home() {
       .catch(() => {})
   }, [])
 
-  const openModal = useCallback(() => setModalOpen(true), [])
+  const openModal = useCallback((src: string) => { setSource(src); setModalOpen(true) }, [])
   const closeModal = useCallback(() => setModalOpen(false), [])
 
   useEffect(() => {
@@ -124,7 +133,7 @@ export default function Home() {
       const res = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, company }),
+        body: JSON.stringify({ email, company, source }),
       })
       if (res.status === 429) {
         setSubmitError('Too many attempts. Please wait a moment and try again.')
@@ -179,7 +188,7 @@ export default function Home() {
 
         {/* CTA */}
         <div className="cta-wrap">
-          <button className="btn-download" onClick={openModal}>
+          <button className="btn-download" onClick={() => openModal('hero')}>
             Join the Waitlist
           </button>
           <p className="cta-meta">
@@ -269,6 +278,85 @@ export default function Home() {
           </div>
         </div>
           </div>
+        </div>
+      </section>
+
+      {/* PLAN SECTION */}
+      <section className="plan-section">
+        <div className="plan-header">
+          <span className="section-eyebrow">Plans</span>
+          {/* Pro/Lifetime copy temporarily hidden — restore when those plans go live:
+          <h2 className="plan-heading">Free to start,<br /><em>Pro when you grow</em></h2>
+          <p className="plan-subtext">Burn is free to use, forever. Level up to Pro for the full history behind your numbers, or pay once and own it for life.</p>
+          */}
+          <h2 className="plan-heading"><em>Free</em> to start</h2>
+          <p className="plan-subtext">Burn is free to use, forever. Put your Claude usage in the menu bar and never get caught off guard by a limit again.</p>
+        </div>
+
+        {/* `single` centers the lone Free card — remove it when Pro & Lifetime return */}
+        <div className="plan-grid single">
+          {/* FREE */}
+          <article className="plan-card">
+            <span className="plan-name">Free</span>
+            <p className="plan-tagline">Everything you need to stay aware of your usage.</p>
+            <div className="plan-price">
+              <span className="plan-price-value">$0</span>
+              <span className="plan-price-period">forever</span>
+            </div>
+            <ul className="plan-features">
+              <li className="plan-feature"><Check /> Live usage in your menu bar</li>
+              <li className="plan-feature"><Check /> Current session tracking</li>
+              <li className="plan-feature"><Check /> Weekly limit tracking</li>
+              <li className="plan-feature"><Check /> Native macOS notifications</li>
+            </ul>
+            <button className="plan-btn" onClick={() => openModal('plan_free')}>Join the Waitlist</button>
+          </article>
+
+          {/* Pro & Lifetime plans temporarily hidden — restore when they go live:
+          <article className="plan-card featured">
+            <span className="plan-badge">Most popular</span>
+            <span className="plan-name">Pro</span>
+            <p className="plan-tagline">For power users who want the whole picture.</p>
+            <div className="plan-price">
+              <span className="plan-price-value">$10</span>
+              <span className="plan-price-period">/ month</span>
+            </div>
+            <ul className="plan-features">
+              <li className="plan-feature strong"><Check /> Everything in Free</li>
+              <li className="plan-feature"><Check /> Usage history &amp; trends</li>
+              <li className="plan-feature"><Check /> Metrics &amp; reports</li>
+            </ul>
+            <button className="plan-btn primary" onClick={() => openModal('plan_pro')}>Join the Waitlist</button>
+          </article>
+
+          <article className="plan-card">
+            <span className="plan-name">Lifetime</span>
+            <p className="plan-tagline">Pay once. Own every version of Burn, forever.</p>
+            <div className="plan-price">
+              <span className="plan-price-value">$99</span>
+              <span className="plan-price-period">one-time</span>
+            </div>
+            <ul className="plan-features">
+              <li className="plan-feature strong"><Check /> Everything in Pro</li>
+              <li className="plan-feature"><Check /> Pay once, yours forever</li>
+              <li className="plan-feature"><Check /> All future updates included</li>
+            </ul>
+            <p className="plan-note">Funds the Apple Developer license that keeps Burn signed &amp; running.</p>
+            <button className="plan-btn" onClick={() => openModal('plan_lifetime')}>Join the Waitlist</button>
+          </article>
+          */}
+        </div>
+      </section>
+
+      {/* CTA SECTION */}
+      <section className="cta-section">
+        <div className="cta-panel">
+          <span className="section-eyebrow">Get started</span>
+          <h2 className="cta-heading">Stop guessing.<br /><em>Start watching.</em></h2>
+          <p className="cta-section-sub">Join the waitlist and be among the first to put Claude usage in your menu bar.</p>
+          <button className="btn-download" onClick={() => openModal('cta')}>
+            Join the Waitlist
+          </button>
         </div>
       </section>
 
