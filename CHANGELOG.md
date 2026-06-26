@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] — 2026-06-26
+
+### Fixed
+- The site favicon now ships as a real image file served at a stable URL, so Google and other crawlers can index it. It was previously defined only as an inline data URI, which search engines ignore — leaving no icon next to the search result.
+
 ## [1.1.0] — 2026-06-21
 
 ### Added
