@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { track } from '@databuddy/sdk'
 
 
 interface Particle {
@@ -105,7 +106,11 @@ export default function Home() {
       .catch(() => {})
   }, [])
 
-  const openModal = useCallback((src: string) => { setSource(src); setModalOpen(true) }, [])
+  const openModal = useCallback((src: string) => {
+    track('waitlist_cta_click', { section: src })
+    setSource(src)
+    setModalOpen(true)
+  }, [])
   const closeModal = useCallback(() => setModalOpen(false), [])
 
   useEffect(() => {
@@ -136,13 +141,16 @@ export default function Home() {
         body: JSON.stringify({ email, company, source }),
       })
       if (res.status === 429) {
+        track('waitlist_signup_error', { section: source, reason: 'rate_limited' })
         setSubmitError('Too many attempts. Please wait a moment and try again.')
         return
       }
       if (!res.ok) {
+        track('waitlist_signup_error', { section: source, reason: 'server_error' })
         setSubmitError('Something went wrong. Please try again.')
         return
       }
+      track('waitlist_signup', { section: source })
       setSubmitted(true)
       launchConfetti()
       // Refresh count after signup
@@ -151,6 +159,7 @@ export default function Home() {
         .then(({ count: n }) => setCount(n ?? 0))
         .catch(() => {})
     } catch {
+      track('waitlist_signup_error', { section: source, reason: 'network_error' })
       setSubmitError('Network error. Please check your connection and try again.')
     } finally {
       setSubmitting(false)
